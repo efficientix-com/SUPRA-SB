@@ -159,16 +159,29 @@
                                 </tr>
 
                                 <tr>
-                                    <td colspan="10" style="font-size:9px;"><strong>Fecha: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>
+                                    <td colspan="10" style="font-size:9px;"><strong>Fecha: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="10" style="font-size:9px;"><strong>Fecha: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>
+                                    <td colspan="10" style="font-size:9px;"><strong>Fecha: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="10" style="font-size:9px;"><strong>Uso CFDI: </strong>${record.custbody_mx_cfdi_usage}</td>
-                                    <#--  <td colspan="10" style="font-size:9px;"><strong>Uso CFDI: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>  -->
+                                    <#--  <td colspan="10" style="font-size:9px;"><strong>Uso CFDI: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>  -->
+                                </tr>
+
+                                <tr>
+                                    <td colspan="10" style="font-size:9px;"><strong>Forma de Pago: </strong><#if dataXML?has_content>${dataXML.atributos.FormaPago}<#else>${record.custbody_mx_txn_sat_payment_method}</#if></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="10" style="font-size:9px;"><strong>Metodo de Pago: </strong><#if dataXML?has_content>${dataXML.atributos.MetodoPago}<#else>${record.custbody_mx_txn_sat_payment_term}</#if></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="5" style="font-size:9px;"><strong>Moneda: </strong><#if dataXML?has_content>${dataXML.atributos.Moneda}<#else>${record.currency}</#if></td>
+                                    <td colspan="5" style="font-size:9px;"><strong>T.C: </strong><#if dataXML?has_content>${dataXML.atributos.TipoCambio}<#else>${record.exchangerate}</#if></td>
                                 </tr>
                             </table>
 
@@ -338,7 +351,7 @@
                 }
         </style>
     </head>
-    <body header="nlheader" header-height="12%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <body header="nlheader" header-height="15%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
 
         <#assign "desglosa_cliente" = record.entity.custentity_efx_cmp_registra_ieps>
         <#assign "tipoGBL" = record.custbody_efx_fe_gbl_type>
