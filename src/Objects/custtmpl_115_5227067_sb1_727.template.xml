@@ -147,15 +147,31 @@
 
                         </td>
                         <#--  tabla de datos custom  -->
-                        <td colspan="4" style="font-size: 10px;" align="right"><span style="font-size: 12px;"><strong>FACTURA</strong></span><br/>
-                            <#if dataXML?has_content>
-                                <#assign folio_tran = dataXML.atributos.Serie +""+ dataXML.atributos.Folio>
-                                <span class="number" style="font-size: 18px;">${folio_tran}</span>
-                                <br/> <br/>Fecha y hora de emisi&oacute;n<br/>${dataXML.atributos.Fecha}<br/>
-                            <#else>
-                                <span class="number" style="font-size: 18px;">${record.tranid}</span>
-                                <br/> <br/>Fecha y hora de emisi&oacute;n<br/>${record.createdDate}<br/>
-                            </#if>
+                        <td colspan="4" style="font-size: 10px;" align="right">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td colspan="10" style="background-color: #e3e3e3; font-size:8px;">Comprobante Fiscal Digital Ingreso</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="5" style="font-size:9px;"><strong>Serie: </strong><#if dataXML?has_content>${dataXML.atributos.Serie}</#if></td>
+                                    <td colspan="5" style="font-size:9px;"><strong>Folio: </strong><#if dataXML?has_content>${dataXML.atributos.Folio}</#if></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="10" style="font-size:9px;"><strong>Fecha: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="10" style="font-size:9px;"><strong>Fecha: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="10" style="font-size:9px;"><strong>Uso CFDI: </strong>${record.custbody_mx_cfdi_usage}</td>
+                                    <#--  <td colspan="10" style="font-size:9px;"><strong>Uso CFDI: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>  -->
+                                </tr>
+                            </table>
+
                         </td>
                     </tr>
                 </table>
