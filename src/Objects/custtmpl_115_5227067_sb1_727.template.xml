@@ -142,7 +142,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <strong>RFC: ${record.custbody_efx_fe_dirloc?keep_after_last("<br />")}</strong>
+                                    <strong>RFC: <#outputformat "XML">${record.custbody_efx_fe_dirloc?keep_after_last("<br />")}</#outputformat></strong>
                                 <#else>
                                 <table style="width: 100%;">
                                         <tr>
@@ -202,10 +202,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="font-size:9px;"><strong>Regimen fiscal: </strong><#if dataXML?has_content>${dataXML.atributos.RegimenFiscal}<#else>${record.subsidiary.custrecord_mx_sat_industry_type}</#if></td>
+                        <td colspan="6" style="font-size:9px;"><strong>Regimen fiscal: </strong><#if dataXML?has_content>${dataXML.atributos.RegimenFiscal}<#else>${record.subsidiary.custrecord_mx_sat_industry_type}</#if></td>
                     </tr>
                     <tr style="border-bottom: 1px solid black;">
-                        <td colspan="5" style="font-size:9px; "><strong>Lugar de Expedición: </strong><#if dataXML?has_content>${dataXML.atributos.LugarExpedicion}<#else>${record.custbody_efx_fe_lugar_expedicion}</#if></td>
+                        <td colspan="6" style="font-size:9px; "><strong>Lugar de Expedición: </strong><#if dataXML?has_content>${dataXML.atributos.LugarExpedicion}<#else>${record.custbody_efx_fe_lugar_expedicion}</#if></td>
                     </tr>
                 </table>
             </macro>
@@ -237,7 +237,7 @@
                 <#else> font-family: NotoSans, sans-serif;
                 </#if>
                 /* TESTING
-                border: 1px solid red;*/
+                border: 1px solid red; */
                 }
 
                 table {
@@ -371,7 +371,7 @@
                 }
         </style>
     </head>
-    <body header="nlheader" header-height="20%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <body header="nlheader" header-height="15%" footer="nlfooter" footer-height="20pt"  size="Letter">
 
         <#assign "desglosa_cliente" = record.entity.custentity_efx_cmp_registra_ieps>
         <#assign "tipoGBL" = record.custbody_efx_fe_gbl_type>
@@ -414,105 +414,168 @@
         <#assign totaliepsimp = 0/>
 
         <#if dataXML?has_content>
-            <#if record.custbody_efx_fe_kiosko_customer?has_content>
-                <table style="width: 100%; margin-top: 10px;">
-                    <tr>
-                        <td class="body" colspan="14" style="background-color: #e3e3e3; font-size:9px;"><b>Cliente</b></td>
-                        <td></td>
-                        <td class="body" colspan="14" style="background-color: #e3e3e3; font-size:9px"><b>Domicilio Fiscal</b></td>
-                    </tr>
-                    <tr>
-                        <td colspan="14" rowspan="2"
-                            style="border: 1px; border-color: #e3e3e3; font-size:9px;">${dataXML.Receptor.atributos.Nombre}
-                            <br/><br/><b>RFC:</b> <#outputformat "XML">${dataXML.Receptor.atributos.Rfc}</#outputformat><br/></td>
-                        <td></td>
+            <table style="width: 100%; margin-top: 10px; border-bottom: 1px solid black">
+                <tr>
+                    <td class="body" colspan="7" style="font-size:9px;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    <b>Facturado a:</b><br />
+                                    ${dataXML.Receptor.atributos.Nombre}
+                                </td>
+                            </tr>
 
-                        <td align="left" colspan="14"
-                            style="border: 1px; border-color: #e3e3e3; font-size:9px;">${record.custbody_efx_fe_kiosko_address?upper_case} </td>
-                    </tr>
-                </table>
-            <#else>
-                <table style="width: 100%; margin-top: 10px;">
-                    <tr>
-                        <td class="body" colspan="14" style="background-color: #e3e3e3; font-size:9px;"><b>Cliente</b></td>
-                        <td></td>
-                        <td class="body" colspan="14" style="background-color: #e3e3e3; font-size:9px"><b>Domicilio Fiscal</b></td>
-                    </tr>
-                    <tr>
-                        <td colspan="14" rowspan="2"
-                            style="border: 1px; border-color: #e3e3e3; font-size:9px;">${dataXML.Receptor.atributos.Nombre}
-                            <br/><br/><b>RFC:</b> <#outputformat "XML">${dataXML.Receptor.atributos.Rfc}</#outputformat><br/></td>
-                        <td></td>
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    ${record.billaddress?keep_after(" />")?upper_case}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
 
+                    <td class="body" colspan="7" style="font-size:9px;" align="right">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="font-size:9px;" align="right">
+                                    <b>Registro de identificación fiscal:</b><br />
+                                    1234567890
+                                </td>
+                            </tr>
 
-                        <td align="left" colspan="14"
-                            style="border: 1px; border-color: #e3e3e3; font-size:9px;">${record.billaddress?keep_after(" />")?upper_case} </td>
-                    </tr>
-                </table>
-            </#if>
+                            <tr>
+                                <td style="font-size:9px;" align="right">
+                                    <b>Residencia: </b> (${record.billcountry}) ${record.billstate}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="body" colspan="7" style="font-size:9px;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    <b>Orden de Venta: </b> ${record.otherrefnum}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    <b>Vendedor: </b> ${record.salesrep}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    <b>Enviar a: </b> ${record.shipaddress}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td class="body" colspan="7" style="font-size:9px;" align="right">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="font-size:9px;" align="right">
+                                    <b>Pedido:</b><br />
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-size:9px;" align="right">
+                                    <b>No. de Proveedor: </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         <#else>
-            <#if record.custbody_efx_fe_kiosko_customer?has_content>
-                <table style="width: 100%; margin-top: 10px;">
-                    <tr>
-                        <td class="body" colspan="14" style="background-color: #e3e3e3; font-size:9px;"><b>Cliente</b></td>
-                        <td></td>
-                        <td class="body" colspan="14" style="background-color: #e3e3e3; font-size:9px"><b>Domicilio Fiscal</b></td>
-                    </tr>
-                    <tr>
-                        <td colspan="14" rowspan="2"
-                            style="border: 1px; border-color: #e3e3e3; font-size:9px;">${record.custbody_efx_fe_kiosko_name}
-                            <br/><br/><b>RFC:</b> <#outputformat "XML">${record.custbody_efx_fe_kiosko_rfc?upper_case}</#outputformat>
-                            <br/></td>
-                        <td></td>
+            <table style="width: 100%; margin-top: 10px; border-bottom: 1px solid black">
+                <tr>
+                    <td class="body" colspan="7" style="font-size:9px;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    <b>Facturado a:</b><br />
+                                    <#if record.entity.custentity_mx_sat_registered_name?has_content>
+                                        ${record.entity.custentity_mx_sat_registered_name}
+                                    <#else>
+                                        ${record.entityname}
+                                    </#if>
+                                </td>
+                            </tr>
 
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    ${record.billaddress?keep_after(" />")?upper_case}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
 
-                        <td align="left" colspan="14"
-                            style="border: 1px; border-color: #e3e3e3; font-size:9px;">${record.custbody_efx_fe_kiosko_address} </td>
-                    </tr>
-                </table>
-            <#else>
-                <table style="width: 100%; margin-top: 10px;">
-                    <tr>
-                        <td class="body" colspan="14" style="background-color: #e3e3e3; font-size:9px;"><b>Cliente</b></td>
-                        <td></td>
-                        <td class="body" colspan="14" style="background-color: #e3e3e3; font-size:9px"><b>Domicilio Fiscal</b></td>
-                    </tr>
-                    <tr>
-                    <#if record.customer.custentity_mx_sat_registered_name?has_content>
-                        <td colspan="14" rowspan="2"
-                            style="border: 1px; border-color: #e3e3e3; font-size:9px;">${record.customer.custentity_mx_sat_registered_name}<br/><br/><b>RFC:</b> <#outputformat "XML">${record.custbody_mx_customer_rfc?upper_case}</#outputformat>
-                            <br/></td>
-                            <#else>
-                            <td colspan="14" rowspan="2"
-                            style="border: 1px; border-color: #e3e3e3; font-size:9px;">${record.customer.altname}<br/><br/><b>RFC:</b> <#outputformat "XML">${record.custbody_mx_customer_rfc?upper_case}</#outputformat>
-                            <br/></td>
-                            </#if>
-                        <td></td>
+                    <td class="body" colspan="7" style="font-size:9px;" align="right">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="font-size:9px;" align="right">
+                                    <b>Registro de identificación fiscal:</b><br />
+                                    1234567890
+                                </td>
+                            </tr>
 
+                            <tr>
+                                <td style="font-size:9px;" align="right">
+                                    <b>Residencia: </b> (${record.billcountry}) ${record.billstate}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
 
-                        <td align="left" colspan="14"
-                            style="border: 1px; border-color: #e3e3e3; font-size:9px;">${record.billaddress?keep_after(" />")?upper_case} </td>
-                    </tr>
-                </table>
-            </#if>
+                <tr>
+                    <td class="body" colspan="7" style="font-size:9px;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    <b>Orden de Venta: </b> ${record.otherrefnum}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    <b>Vendedor: </b> ${record.salesrep}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-size:9px;" align="left">
+                                    <b>Enviar a: </b> ${record.shipaddress}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td class="body" colspan="7" style="font-size:9px;" align="right">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="font-size:9px;" align="right">
+                                    <b>Pedido:</b><br />
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-size:9px;" align="right">
+                                    <b>No. de Proveedor: </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </#if>
-
-        <table class="body" style="width: 100%; margin-top: 9px;">
-            <tr>
-                <th colspan="3">Condiciones de Pago:</th>
-                <th colspan="3">Tipo de Cambio</th>
-                <th colspan="3">Moneda</th>
-                <th colspan="3">No. de pedido</th>
-
-            </tr>
-            <tr>
-                <td colspan="3" style="font-size:9px;">${record.entity.terms}</td>
-                <td colspan="3" style="font-size:9px;">${record.exchangerate?string["0.00"]}</td>
-                <td colspan="3" style="font-size:9px;">${record.currency.symbol}</td>
-                <td colspan="3" style="font-size:9px;">${record.otherrefnum}</td>
-
-            </tr>
-        </table>
 
         <#assign "line_discount"= 0>
         <#assign "importe_discount" = []>
