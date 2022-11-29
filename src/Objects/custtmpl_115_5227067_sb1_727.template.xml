@@ -101,6 +101,8 @@
                                         <#if record.custbody_efx_fe_logosub?has_content>
                                             <#assign "urldir" = "https://system.netsuite.com"+record.custbody_efx_fe_logosub>
                                             <img width="140" height="70" src="${urldir}"/>
+
+
                                         </#if>
                                     </#if>
                                 <#else>
@@ -118,6 +120,7 @@
                             </#if>
 
                         </td>
+
                         <#--  Direccion de empresa  -->
                         <td colspan="7" align="center" style="font-size: 8px;">
 
@@ -127,7 +130,7 @@
                                 <#if record.custbody_efx_fe_info_location_pdf == true>
                                     <table style="width: 100%;">
                                         <tr>
-                                            <td style="font-size: 10px;">
+                                            <td style="font-size: 10px;" align="center">
                                                 SUPRA DESARROLLOS TECNOLOGICOS
                                             </td>
                                         </tr>
@@ -141,51 +144,68 @@
                                     </table>
                                     <strong>RFC: ${record.custbody_efx_fe_dirloc?keep_after_last("<br />")}</strong>
                                 <#else>
-                                    ${record.custbody_efx_fe_dirsubs}
+                                <table style="width: 100%;">
+                                        <tr>
+                                            <td style="font-size: 10px;">
+                                                SUPRA DESARROLLOS TECNOLOGICOS
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 8px; " align="center">
+                                                <p style="text-align: center;">${record.custbody_efx_fe_dirsubs?keep_before_last("<br />")}<br /><br />
+                                                TEL: ${record.subsidiary.custrecord_efx_fe_add_phone} &nbsp; www.supradesarrollos.com
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <strong>RFC: ${record.custbody_efx_fe_dirsubs?keep_after_last("<br />")}</strong>
+
                                 </#if>
                             </#if>
 
                         </td>
                         <#--  tabla de datos custom  -->
                         <td colspan="4" style="font-size: 10px;" align="right">
-                            <table style="width: 100%;">
+                            <table style="width: 100%; border: 1px solid black;">
                                 <tr>
-                                    <td colspan="10" style="background-color: #e3e3e3; font-size:8px;">Comprobante Fiscal Digital Ingreso</td>
+                                    <td colspan="10" style="background-color: #e3e3e3; font-size:8px; padding: 4px;" align="center"><strong>Comprobante Fiscal Digital Ingreso</strong></td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="5" style="font-size:9px;"><strong>Serie: </strong><#if dataXML?has_content>${dataXML.atributos.Serie}</#if></td>
-                                    <td colspan="5" style="font-size:9px;"><strong>Folio: </strong><#if dataXML?has_content>${dataXML.atributos.Folio}</#if></td>
+                                    <td colspan="5" style="font-size:9px; padding: 4px;"><strong>Serie: </strong><#if dataXML?has_content>${dataXML.atributos.Serie}</#if></td>
+                                    <td colspan="5" style="font-size:9px; padding: 4px;"><strong>Folio: </strong><#if dataXML?has_content>${dataXML.atributos.Folio}</#if></td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="10" style="font-size:9px;"><strong>Fecha: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>
+                                    <td colspan="10" style="font-size:9px; padding: 4px;"><strong>Fecha: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="10" style="font-size:9px;"><strong>Fecha: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>
-                                </tr>
-
-                                <tr>
-                                    <td colspan="10" style="font-size:9px;"><strong>Uso CFDI: </strong>${record.custbody_mx_cfdi_usage}</td>
+                                    <td colspan="10" style="font-size:9px; padding: 4px;"><strong>Uso CFDI: </strong>${record.custbody_mx_cfdi_usage}</td>
                                     <#--  <td colspan="10" style="font-size:9px;"><strong>Uso CFDI: </strong><#if dataXML?has_content>${dataXML.atributos.Fecha}<#else>${record.custbody_mx_cfdi_certify_timestamp}</#if></td>  -->
                                 </tr>
 
                                 <tr>
-                                    <td colspan="10" style="font-size:9px;"><strong>Forma de Pago: </strong><#if dataXML?has_content>${dataXML.atributos.FormaPago}<#else>${record.custbody_mx_txn_sat_payment_method}</#if></td>
+                                    <td colspan="10" style="font-size:9px; padding: 4px;"><strong>Forma de Pago: </strong><#if dataXML?has_content>${dataXML.atributos.FormaPago}<#else>${record.custbody_mx_txn_sat_payment_method}</#if></td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="10" style="font-size:9px;"><strong>Metodo de Pago: </strong><#if dataXML?has_content>${dataXML.atributos.MetodoPago}<#else>${record.custbody_mx_txn_sat_payment_term}</#if></td>
+                                    <td colspan="10" style="font-size:9px; padding: 4px;"><strong>Metodo de Pago: </strong><#if dataXML?has_content>${dataXML.atributos.MetodoPago}<#else>${record.custbody_mx_txn_sat_payment_term}</#if></td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="5" style="font-size:9px;"><strong>Moneda: </strong><#if dataXML?has_content>${dataXML.atributos.Moneda}<#else>${record.currency}</#if></td>
-                                    <td colspan="5" style="font-size:9px;"><strong>T.C: </strong><#if dataXML?has_content>${dataXML.atributos.TipoCambio}<#else>${record.exchangerate}</#if></td>
+                                    <td colspan="5" style="font-size:9px; padding: 4px;"><strong>Moneda: </strong><#if dataXML?has_content>${dataXML.atributos.Moneda}<#else>${record.currency}</#if></td>
+                                    <td colspan="5" style="font-size:9px; padding: 4px;"><strong>T.C: </strong><#if dataXML?has_content>${dataXML.atributos.TipoCambio}<#else>${record.exchangerate}</#if></td>
                                 </tr>
                             </table>
 
                         </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="font-size:9px;"><strong>Regimen fiscal: </strong><#if dataXML?has_content>${dataXML.atributos.RegimenFiscal}<#else>${record.subsidiary.custrecord_mx_sat_industry_type}</#if></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid black;">
+                        <td colspan="5" style="font-size:9px; "><strong>Lugar de Expedición: </strong><#if dataXML?has_content>${dataXML.atributos.LugarExpedicion}<#else>${record.custbody_efx_fe_lugar_expedicion}</#if></td>
                     </tr>
                 </table>
             </macro>
@@ -216,8 +236,8 @@
                 <#elseif .locale == "th_TH"> font-family: NotoSans, NotoSansThai, sans-serif;
                 <#else> font-family: NotoSans, sans-serif;
                 </#if>
-                /* TESTING */
-                border: 1px solid red;
+                /* TESTING
+                border: 1px solid red;*/
                 }
 
                 table {
@@ -351,7 +371,7 @@
                 }
         </style>
     </head>
-    <body header="nlheader" header-height="15%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <body header="nlheader" header-height="20%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
 
         <#assign "desglosa_cliente" = record.entity.custentity_efx_cmp_registra_ieps>
         <#assign "tipoGBL" = record.custbody_efx_fe_gbl_type>
