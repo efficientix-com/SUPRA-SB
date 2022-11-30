@@ -1004,22 +1004,82 @@
                             <#assign "desglose_json" = item.custcol_efx_fe_tax_json>
                             <#if desglose_json?has_content>
                                 <#assign "desglose" = desglose_json?eval>
-                                <td align="center" colspan="4" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">${item.quantity}</td>
-                                <td align="center" colspan="2" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">${item.units}</td>
-                                <td align="center" colspan="2" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">###</td>
-                                <td align="center" colspan="3" style="font-size: 5pt; padding:0;">${item.custcol_mx_txn_line_sat_item_code?keep_before(" ")}</td>
-                                <td align="center" colspan="10" style="font-size: 5pt; padding-top: 1px;">${item.item?keep_before(" ")}</td>
-                                <td align="center" colspan="8" style="font-size: 5pt; padding-top: 1px;">${item.description}</td>
-                                <td align="center" colspan="4" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">${importe_discount[item_index+1]?number?string[",##0.00"]}</td>
-                                <td align="center" colspan="4" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">${item.rate?string[",##0.00"]}</td>
-                                <td align="center" colspan="5" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">${item.custcol_efx_fe_upc_code}</td>
-                                <td align="center" colspan="4" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">${item.amount}</td>
+                                <td align="center" colspan="4" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">${item.quantity}</td>
+                                <td align="center" colspan="2" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">${item.units}</td>
+                                <td align="center" colspan="2" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">###</td>
+                                <td align="center" colspan="3" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">${item.custcol_mx_txn_line_sat_item_code?keep_before(" ")}</td>
+                                <td align="center" colspan="10" style="font-size: 5pt; padding-top: 4px;">${item.item?keep_before(" ")}</td>
+                                <td align="center" colspan="8" style="font-size: 5pt; padding-top: 4px;">${item.description}</td>
+                                <td align="center" colspan="4" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">${importe_discount[item_index+1]?number?string[",##0.00"]}</td>
+                                <td align="center" colspan="4" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">${item.rate?string[",##0.00"]}</td>
+                                <td align="center" colspan="5" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">${item.custcol_efx_fe_upc_code}</td>
+                                <td align="center" colspan="4" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">${item.amount}</td>
                                 <#assign "descuento_total" = descuento_total + importe_discount[item_index+1]>
                             </#if>
                         </tr>
                     </#if>
-
                 </#list>
+                <#assign json = record.custbody_efx_fe_tax_json>
+                <#if json?has_content>
+                    <#assign taxObj = json?eval>
+                </#if>
+
+                <tr>
+                    <td class="body" colspan="46" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">
+                        <table  style="width: 100%;" >
+                            <tr style=" border-bottom: 1px solid black;">
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    Traslados:
+                                </td>
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    Base:
+                                </td>
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    <#list taxObj.bases_iva as key, value>
+                                        ${value}
+                                    </#list>
+                                </td>
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    Impuesto:
+                                </td>
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    002
+                                </td>
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    Tipo de Factor:
+                                </td>
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    tasa
+                                </td>
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    Tasa:
+                                </td>
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    <#list taxObj.bases_iva as key, value>
+                                        ${key?number /100}
+                                    </#list>
+                                </td>
+
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    Importe:
+                                </td>
+
+                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
+                                    ${taxObj.totalImpuestos}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </table>
         </#if>
 
