@@ -148,7 +148,7 @@
                                 <#else>
                                 <table style="width: 100%;">
                                         <tr>
-                                            <td style="font-size: 10px;">
+                                            <td style="font-size: 10px;" align="center">
                                                 SUPRA DESARROLLOS TECNOLOGICOS
                                             </td>
                                         </tr>
@@ -471,11 +471,6 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td style="font-size:9px;" align="left">
-                                    <b>Enviar a: </b> ${record.shipaddress}
-                                </td>
-                            </tr>
                         </table>
                     </td>
 
@@ -520,21 +515,6 @@
                         </table>
                     </td>
 
-                    <td class="body" colspan="7" style="font-size:9px;" align="right">
-                        <table style="width: 100%;">
-                            <tr>
-                                <td style="font-size:9px;" align="right">
-                                    <b>Registro de identificación fiscal:</b><br />
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td style="font-size:9px;" align="right">
-                                    <b>Residencia: </b> (${record.billcountry}) ${record.billstate}
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
                 </tr>
 
                 <tr>
@@ -549,12 +529,6 @@
                             <tr>
                                 <td style="font-size:9px;" align="left">
                                     <b>Vendedor: </b> ${record.salesrep}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td style="font-size:9px;" align="left">
-                                    <b>Enviar a: </b> ${record.shipaddress}
                                 </td>
                             </tr>
                         </table>
@@ -636,67 +610,19 @@
                             <td align="center" colspan="5" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">${Conceptos.atributos.NoIdentificacion}</td>
                             <td align="center" colspan="4" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">${Conceptos.atributos.Importe?number?string[",##0.00"]}</td>
                         </tr>
-                        <#if Conceptos.Impuestos.Traslados.Traslado?has_content>
-                            <#if Conceptos.Impuestos.Traslados.Traslado?is_sequence>
-                                <#list Conceptos.Impuestos.Traslados.Traslado as impuestos_linec>
-                                    <#assign base_line_calc = base_line_calc + impuestos_linec.atributos.Base?number>
-                                </#list>
-                            <#else>
-                                <#assign base_line_calc = impuestos_line_calc + Conceptos.Impuestos.Traslados.Traslado.atributos.Base?number>
-                            </#if>
-                        </#if>
-                        <#assign array_position = array_position + 1>
                     </#list>
-                    <tr>
-                        <td class="body" colspan="46" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">
-                            <table  style="width: 100%;" >
-                                <tr style=" border-bottom: 1px solid black;">
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        Traslados:
-                                    </td>
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        Base:
-                                    </td>
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        ${base_line_calc}
-                                    </td>
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        Impuesto:
-                                    </td>
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        ${dataXML.Impuestos.Traslados.Traslado.atributos.Impuesto}
-                                    </td>
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        Tipo de Factor:
-                                    </td>
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        ${dataXML.Impuestos.Traslados.Traslado.atributos.TipoFactor}
-                                    </td>
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        Tasa:
-                                    </td>
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        ${dataXML.Impuestos.Traslados.Traslado.atributos.TasaOCuota}
-                                    </td>
-
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        Importe:
-                                    </td>
-
-                                    <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                        ${dataXML.Impuestos.Traslados.Traslado.atributos.Importe}
-                                    </td>
-                                </tr>
-                            </table>
+                    <tr style="border-bottom: 1px solid black">
+                        <td class="body" colspan="46" style="font-size: 5pt; padding-top: 1px; padding-left: 10px; padding-right: 0px;">
+                            <#assign qrcodeImage = "data:image/png;base64, " + certData.custbody_mx_cfdi_qr_code >
+                            <br />
+                            <br />
+                            <br />
+                            <#if certData?has_content>
+                                <img style="width: 70px;height:70px" src="${qrcodeImage}"/>
+                            </#if>
+                            <br />
+                            <br />
+                            <br />
                         </td>
                     </tr>
                 <#--  <#else>
@@ -939,67 +865,6 @@
                         </tr>
                     </#if>
                 </#list>
-                <#assign json = record.custbody_efx_fe_tax_json>
-                <#if json?has_content>
-                    <#assign taxObj = json?eval>
-                </#if>
-
-                <tr>
-                    <td class="body" colspan="46" style="font-size: 5pt; padding-top: 1px; padding-left: 0px; padding-right: 0px;">
-                        <table  style="width: 100%;" >
-                            <tr style=" border-bottom: 1px solid black;">
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    Traslados:
-                                </td>
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    Base:
-                                </td>
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    <#list taxObj.bases_iva as key, value>
-                                        ${value}
-                                    </#list>
-                                </td>
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    Impuesto:
-                                </td>
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    002
-                                </td>
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    Tipo de Factor:
-                                </td>
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    tasa
-                                </td>
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    Tasa:
-                                </td>
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    <#list taxObj.bases_iva as key, value>
-                                        ${key?number /100}
-                                    </#list>
-                                </td>
-
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    Importe:
-                                </td>
-
-                                <td style="font-size: 5pt; padding-top: 3px; padding-left: 14px; padding-right: 0px;">
-                                    ${taxObj.totalImpuestos}
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
             </table>
         </#if>
 
@@ -1050,23 +915,6 @@
                             <td align="left" colspan="6" style="font-size: 7px;">${record.custbody_efx_fe_total_text}</td>
                         </tr>
 
-                        <tr>
-                            <#assign qrcodeImage = "data:image/png;base64, " + certData.custbody_mx_cfdi_qr_code >
-                            <td align="left" colspan="2">
-                                <#if certData?has_content>
-                                    <img style="width: 70px;height:70px" src="${qrcodeImage}"/>
-                                </#if>
-                            </td>
-                            <td align="left" colspan="2" style="font-size: 7px;">
-                                PAIS DE ORIGEN: ${record.billcountry}<br />
-                                <br />
-                                <#--  TODO: Revisar que dato va aqui  -->
-                                CLASIFICACION: <br />
-                                <br />
-                                <#--  TODO: Revisar que dato va aqui  -->
-                                PESO:
-                            </td>
-                        </tr>
                     </table>
                 </td>
                 <td colspan="2" style="margin: 0px; padding: 0;">

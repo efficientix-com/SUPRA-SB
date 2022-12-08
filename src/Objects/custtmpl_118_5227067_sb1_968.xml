@@ -1,0 +1,9 @@
+<advancedpdftemplate scriptid="custtmpl_118_5227067_sb1_968" standard="STDTMPLEMPTY">
+  <description></description>
+  <displaysourcecode>T</displaysourcecode>
+  <isinactive>F</isinactive>
+  <preferred>F</preferred>
+  <printtype>TRANSACTION</printtype>
+  <title>TKO - Credit Memo Template</title>
+  <trantype>CUSTCRED</trantype>
+</advancedpdftemplate>
