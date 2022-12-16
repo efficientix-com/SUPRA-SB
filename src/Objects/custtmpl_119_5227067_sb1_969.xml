@@ -1,0 +1,9 @@
+<advancedpdftemplate scriptid="custtmpl_119_5227067_sb1_969" standard="STDTMPLSALESORDST">
+  <description></description>
+  <displaysourcecode>F</displaysourcecode>
+  <isinactive>F</isinactive>
+  <preferred>F</preferred>
+  <printtype>TRANSACTION</printtype>
+  <title>TKO - Sales Order Template</title>
+  <trantype>SALESORD</trantype>
+</advancedpdftemplate>

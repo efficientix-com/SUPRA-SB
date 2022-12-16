@@ -1,0 +1,338 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+	<#setting locale = "es_MX">
+    <#setting time_zone= "America/Mexico_City">
+    <#setting number_format=",##0.00">
+	<head>
+		<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+		<#if .locale == "zh_CN">
+			<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+		<#elseif .locale == "zh_TW">
+			<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+		<#elseif .locale == "ja_JP">
+			<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+		<#elseif .locale == "ko_KR">
+			<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+		<#elseif .locale == "th_TH">
+			<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+		</#if>
+		<macrolist>
+			<macro id="nlheader">
+				<table  height="110px" style="width: 100%;">
+					<tr height="110px">
+						<#--  Logo  -->
+						<td colspan="3" style="110px">
+							<#if companyInformation.logoUrl?length != 0>
+								<img width="140" height="70" src="${companyInformation.logoUrl}" />
+							</#if>
+						</td>
+						<#--  Direccion de empresa  -->
+                        <td colspan="8" align="center" style="font-size: 8px;">
+                            <#if record.custbody_efx_fe_info_location_pdf == true>
+								<table style="width: 100%;">
+									<tr>
+										<td colspan="10" style="font-size: 18px; color: #121666; font-weight: bold;" align="left">
+											SUPRA DESARROLLOS #TECNOLÓGICOS S.A de C.V
+										</td>
+									</tr>
+									<tr>
+										<td colspan="10" style="font-size: 8px; font-weight: bold; color: #121666;" align="right">
+											EMPRESA LIDER EN EL AHORRO DE ENERGIA
+										</td>
+									</tr>
+
+									<tr style="border-bottom: 1px solid #121666" >
+										<td colspan="5" style="font-size: 8px; color: #121666;" align="left">
+											${record.custbody_efx_fe_dirloc}
+										</td>
+
+										<#assign first_part = record.custbody_efx_fe_dirloc?keep_after("<br />")>
+										<#assign zip_loc = first_part?keep_before("<br />")>
+										<td colspan="5" style="font-size: 8px; color: #121666;" align="right">
+											TEL/FAX ${record.subsidiary.custrecord_efx_fe_add_phone}<br />
+											<br />
+											C.P ${zip_loc}
+										</td>
+									</tr>
+								</table>
+
+							<#else>
+								<table style="width: 100%;">
+									<tr>
+										<td colspan="10" style="font-size: 18px; color: #121666; font-weight: bold;" align="left">
+											SUPRA DESARROLLOS #TECNOLÓGICOS S.A de C.V
+										</td>
+									</tr>
+									<tr style="border-bottom: 1px solid #121666" >
+										<td colspan="10" style="font-size: 8px; font-weight: bold; color: #121666;" align="right">
+											EMPRESA LIDER EN EL AHORRO DE ENERGIA
+										</td>
+									</tr>
+
+									<tr>
+										<td colspan="5" style="font-size: 8px; color: #121666;" align="left">
+											${record.custbody_efx_fe_dirsubs}
+										</td>
+
+										<#assign first_part = record.custbody_efx_fe_dirsubs?keep_after("<br />")>
+										<#assign zip_sub = first_part?keep_before("<br />")>
+										<td colspan="5" style="font-size: 8px; color: #121666;" align="right">
+											TEL/FAX ${record.subsidiary.custrecord_efx_fe_add_phone}<br />
+											<br />
+											${zip_sub}
+										</td>
+									</tr>
+								</table>
+							</#if>
+                        </td>
+					</tr>
+
+					<tr>
+						<td colspan="11" align="right" style="font-size: 15px; color: #121666; font-weight: bold;">
+							${record.tranid}
+						</td>
+					</tr>
+				</table>
+			</macro>
+			<macro id="nlfooter">
+				<table style="width: 100%; font-size: 8pt;">
+					<tr>
+						<td style="padding: 0;"><barcode codetype="code128" showtext="true" value="${record.tranid}"/></td>
+						<td align="right" style="padding: 0;"><pagenumber/> of <totalpages/></td>
+					</tr>
+				</table>
+			</macro>
+		</macrolist>
+		<style type="text/css">
+			* {
+                <#if .locale == "zh_CN"> font-family: NotoSans, NotoSansCJKsc, sans-serif;
+                <#elseif .locale == "zh_TW"> font-family: NotoSans, NotoSansCJKtc, sans-serif;
+                <#elseif .locale == "ja_JP"> font-family: NotoSans, NotoSansCJKjp, sans-serif;
+                <#elseif .locale == "ko_KR"> font-family: NotoSans, NotoSansCJKkr, sans-serif;
+                <#elseif .locale == "th_TH"> font-family: NotoSans, NotoSansThai, sans-serif;
+                <#else> font-family: NotoSans, sans-serif;
+                </#if>
+			}
+
+			table {
+				font-size: 9pt;
+				table-layout: fixed;
+			}
+
+			th {
+				font-weight: bold;
+				font-size: 8pt;
+				vertical-align: middle;
+				/*padding: 5px 6px 3px;
+				background-color: #e3e3e3;
+				color: #161616;*/
+			}
+
+
+			td {
+				padding: 4px 6px;
+			}
+
+			td p {
+				align: left
+			}
+
+			b {
+				font-weight: bold;
+				color: #000000;
+			}
+
+			table.header td {
+				padding: 0px;
+				font-size: 10pt;
+			}
+
+			table.footer td {
+				padding: 0px;
+				font-size: 8pt;
+			}
+
+
+			table.testing *{
+				/* TESTING */
+				border: 1px solid red;
+			}
+
+			table.items th{
+				border: 1px solid black;
+				font-size: 5pt; padding: 5px 0px 5px 0px;
+			}
+
+			table.items td{
+				border: 1px solid black;
+				font-size: 5pt; padding: 5px 0px 5px 0px;
+			}
+
+
+		</style>
+	</head>
+	<body header="nlheader" header-height="15%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+		<table  style="width: 100%; margin-top: 10px;">
+			<tr>
+				<td colspan="1" align="left" style="font-size: 8px;">FECHA: </td>
+				<td colspan="2" align="center" style="font-size: 8px; border-bottom: 1px solid black">${record.saleseffectivedate}</td>
+				<td colspan="5" align="left" style="font-size: 8px;">&nbsp;</td>
+				<td colspan="2" align="right" style="font-size: 8px;">ORDEN DE VENTA: </td>
+				<td colspan="2" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.tranid}</td>
+			</tr>
+
+			<tr>
+				<td colspan="10" align="right" style="font-size: 8px;">ORDEN DE COMPRA:</td>
+				<td colspan="2" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.otherrefnum}</td>
+			</tr>
+
+			<tr style="margin-top: 10px">
+				<td colspan="1" align="left" style="font-size: 8px;">COMPAÑIA</td>
+				<td colspan="11" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.entity.companyname}</td>
+			</tr>
+
+			<tr style="margin-top: 10px">
+				<td colspan="1" align="left" style="font-size: 8px;">E-MAIL</td>
+				<td colspan="11" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.entity.email}</td>
+			</tr>
+
+			<tr style="margin-top: 10px">
+				<td colspan="1" align="left" style="font-size: 8px;">ATENCIÓN</td>
+				<td colspan="4" align="left" style="font-size: 8px; border-bottom: 1px solid black">${user.firstname} ${user.lastname}</td>
+				<td colspan="1" align="left" style="font-size: 8px;">
+					Dirección:
+				</td>
+
+				<#if record.shipaddress?has_content>
+					<#assign dir = record.shipaddress?keep_after("<br />")>
+					<#assign calle = dir?keep_before("<br />")>
+					<#assign colonia = dir?keep_after("<br />")>
+				<#else>
+					<#assign dir = record.billaddress?keep_after("<br />")>
+					<#assign calle = dir?keep_before("<br />")>
+					<#assign colonia = dir?keep_after("<br />")>
+				</#if>
+
+				<td colspan="6" style="font-size: 8px; border-bottom: 1px solid black">
+					${calle}
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="6" align="right" style="font-size: 8px;">&nbsp;</td>
+				<td colspan="6" align="left" style="font-size: 8px; border-bottom: 1px solid black">${colonia?keep_before("<br />")}</td>
+			</tr>
+
+			<tr>
+				<td colspan="1" align="left" style="font-size: 8px;">E-MAIL:</td>
+				<td colspan="11" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.entity.custentity_atlas_mfg_std_invoice_email}</td>
+			</tr>
+
+			<tr>
+				<td colspan="1" align="left" style="font-size: 8px;">CIUDAD:</td>
+				<#if record.billcity?has_content>
+					<td colspan="3" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.billcity}</td>
+				<#else>
+					<td colspan="3" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.shipcity}</td>
+				</#if>
+
+				<td colspan="1" align="right" style="font-size: 8px;">ESTADO:</td>
+				<#if record.billstate?has_content>
+					<td colspan="2" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.billstate}</td>
+				<#else>
+					<td colspan="2" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.shipstate}</td>
+				</#if>
+
+				<td colspan="1" align="right" style="font-size: 8px;">CP:</td>
+				<#if record.billzip?has_content>
+					<td colspan="2" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.billzip}</td>
+				<#else>
+					<td colspan="2" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.shipzip}</td>
+				</#if>
+
+				<td colspan="1" align="right" style="font-size: 8px;">MONEDA:</td>
+				<td colspan="1" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.currencysymbol}</td>
+			</tr>
+
+			<tr>
+				<td colspan="1" align="left" style="font-size: 8px;">TELEFONO:</td>
+				<td colspan="3" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.entity.phone}</td>
+
+				<td colspan="2" align="right" style="font-size: 8px;">CONDICIONES:</td>
+				<td colspan="2" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.terms}</td>
+
+				<td colspan="2" align="right" style="font-size: 8px;">FORMA DE ENVIO:</td>
+				<td colspan="2" align="left" style="font-size: 8px; border-bottom: 1px solid black">${record.shipmethod}</td>
+			</tr>
+
+			<tr>
+				<td colspan="12" align="center" style="font-size: 8px; margin-top: 10px;">Atendiendo su amable solicitud le presentamos a su consideración nuestro siguiente propuesta de cotización</td>
+			</tr>
+		</table>
+
+		<table class="items" style="width: 100%; margin-top: 10px;">
+			<tr>
+				<th align="center" colspan="2">
+					Parte
+				</th>
+				<th align="center" colspan="2">
+					Cantidad
+				</th>
+				<th align="center" colspan="1">
+					Unidad
+				</th>
+				<th align="center" colspan="2">
+					Fecha de entrega
+				</th>
+				<th align="center" colspan="7">
+					Descripción
+				</th>
+				<th align="center" colspan="3">
+					Precio Unitario
+				</th>
+				<th align="center" colspan="3">
+					Total
+				</th>
+			</tr>
+			<#list record.item as item>
+				<tr>
+					<td  align="center" colspan="2" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">
+						${item_index + 1}
+					</td>
+					<td  align="center" colspan="2" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">
+						${item.quantity}
+					</td>
+					<td  align="center" colspan="1" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">
+						${item.units}
+					</td>
+					<td  align="center" colspan="2" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">
+						${item.expectedshipdate}
+					</td>
+					<td  align="center" colspan="7" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">
+						${item.item}
+					</td>
+					<td  align="center" colspan="3" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">
+						${item.rate}
+					</td>
+					<td  align="center" colspan="3" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">
+						${item.amount}
+					</td>
+				</tr>
+				<tr>
+					<td colspan="20" style="font-size: 5pt; padding-top: 4px; padding-left: 0px; padding-right: 0px;">
+						${item.description}
+					</td>
+				</tr>
+			</#list>
+		</table>
+
+		<table style="width: 100%; margin-top: 30px;">
+			<tr>
+				<td>
+					Observaciones: <br />
+					${record.memo}
+				</td>
+			</tr>
+		</table>
+	</body>
+</pdf>
