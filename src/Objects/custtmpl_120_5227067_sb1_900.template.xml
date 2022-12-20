@@ -1,0 +1,236 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+	<#setting locale = "es_MX">
+    <#setting time_zone= "America/Mexico_City">
+    <#setting number_format=",##0.00">
+	<head>
+		<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+		<#if .locale == "zh_CN">
+			<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+		<#elseif .locale == "zh_TW">
+			<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+		<#elseif .locale == "ja_JP">
+			<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+		<#elseif .locale == "ko_KR">
+			<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+		<#elseif .locale == "th_TH">
+			<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+		</#if>
+		<macrolist>
+			<macro id="nlheader">
+				<table  height="110px" style="width: 100%;">
+					<tr height="110px">
+						<#--  Direccion de empresa  -->
+                        <td colspan="14" align="center" style="font-size: 8px;">
+                            <table style="width: 100%;">
+								<tr>
+									<td colspan="14" style="font-size: 12px; font-weight: bold;" align="right">
+										ORDEN DE COMPRA NO: ${record.tranid}
+									</td>
+								</tr>
+								<tr>
+									<td colspan="14" style="font-size: 18px; font-weight: bold;" align="center">
+										${record.subsidiary} <br />
+									</td>
+								</tr>
+								<tr style="border-bottom: 1px solid black; padding: 0px 0px 7px 0px;" >
+									<td colspan="2" style="font-size: 8px; font-weight: bold;" align="right">
+										&nbsp;
+									</td>
+									<td colspan="10" style="font-size: 12px;" align="center">
+										<#if record.billaddress?has_content>
+											<#assign dir = record.billaddress?keep_after("<br />")>
+										<#else>
+											<#assign dir = record.shipaddress?keep_after("<br />")>
+										</#if>
+
+										<#if record.billzip?has_content>
+											<#assign zip = record.billzip>
+										<#else>
+											<#assign zip = record.shipzip>
+										</#if>
+
+										<#--  TODO Revisar con joaco lo del RFC  -->
+										${dir?keep_before("<br />")} CP: ${zip} RFC: Tel: ${record.entity.phone}
+									</td>
+									<td colspan="2" style="font-size: 8px; font-weight: bold;" align="right">
+										Página <pagenumber/> de <totalpages/>
+									</td>
+								</tr>
+
+							</table>
+                        </td>
+					</tr>
+				</table>
+			</macro>
+		</macrolist>
+		<style type="text/css">
+			* {
+                <#if .locale == "zh_CN"> font-family: NotoSans, NotoSansCJKsc, sans-serif;
+                <#elseif .locale == "zh_TW"> font-family: NotoSans, NotoSansCJKtc, sans-serif;
+                <#elseif .locale == "ja_JP"> font-family: NotoSans, NotoSansCJKjp, sans-serif;
+                <#elseif .locale == "ko_KR"> font-family: NotoSans, NotoSansCJKkr, sans-serif;
+                <#elseif .locale == "th_TH"> font-family: NotoSans, NotoSansThai, sans-serif;
+                <#else> font-family: NotoSans, sans-serif;
+                </#if>
+			}
+
+			table {
+				font-size: 9pt;
+				table-layout: fixed;
+			}
+
+			th {
+				font-weight: bold;
+				font-size: 8pt;
+				vertical-align: middle;
+				/*padding: 5px 6px 3px;
+				background-color: #e3e3e3;
+				color: #161616;*/
+			}
+
+
+			td {
+				padding: 4px 6px;
+			}
+
+			td p {
+				align: left
+			}
+
+			b {
+				font-weight: bold;
+				color: #000000;
+			}
+
+			table.header td {
+				padding: 0px;
+				font-size: 10pt;
+			}
+
+			table.footer td {
+				padding: 0px;
+				font-size: 8pt;
+			}
+
+
+			table.testing *{
+				/* TESTING */
+				border: 1px solid red;
+			}
+
+			table.items th{
+				border-top: 1px solid black;
+				border-bottom: 1px solid black;
+				font-size: 5pt; padding: 5px 0px 5px 0px;
+			}
+
+			table.items td{
+
+				font-size: 5pt; padding: 5px 0px 5px 0px;
+			}
+
+
+		</style>
+	</head>
+	<body header="nlheader" header-height="15%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="A4-Landscape" >
+		<table style="width: 100%; margin-top: 10px;">
+			<tr>
+				<td colspan="1" align="left" style="font-size: 8px; font-weight: bold;">Proveedor: </td>
+				<td colspan="4" align="left" style="font-size: 8px; font-weight: bold;">${record.entity}</td>
+				<td colspan="3" align="left" style="font-size: 8px;">&nbsp;</td>
+				<td colspan="2" align="right" style="font-size: 8px;font-weight: bold;">Fecha: </td>
+				<td colspan="2" align="left" style="font-size: 8px; font-weight: bold;">${record.trandate}</td>
+			</tr>
+
+			<tr style="margin-top: 10px">
+				<td colspan="1" align="left" style="font-size: 8px; font-weight: bold;">Dirección: </td>
+				<td colspan="4" align="left" style="font-size: 8px; font-weight: bold;">${record.billaddress}</td>
+				<td colspan="3" align="left" style="font-size: 8px;">&nbsp;</td>
+				<td colspan="2" align="right" style="font-size: 8px;font-weight: bold;">Dirección de entrega: </td>
+				<td colspan="2" align="left" style="font-size: 8px; font-weight: bold;">${record.shipaddress}</td>
+			</tr>
+
+			<tr style="margin-top: 10px">
+				<td colspan="12" align="left" style="font-size: 8px;font-weight: bold;">Población: ${record.billcity} Estado: ${record.billstate}</td>
+			</tr>
+
+			<tr style="margin-top: 10px">
+				<td colspan="1" align="left" style="font-size: 8px;font-weight: bold;">Telefono</td>
+				<td colspan="11" align="left" style="font-size: 8px;font-weight: bold;">${record.entity.phone}</td>
+			</tr>
+
+			<tr>
+				<td colspan="1" align="left" style="font-size: 8px;font-weight: bold;">Atención: </td>
+				<td colspan="11" align="left" style="font-size: 8px;font-weight: bold;">${user.firstname} ${user.lastname}</td>
+			</tr>
+
+		</table>
+
+		<table class="items" style="width: 100%; margin-top: 30px;">
+			<tr>
+				<th align="center" colspan="2">
+					Parte
+				</th>
+				<th align="center" colspan="2">
+					Clave Proovedor
+				</th>
+				<th align="center" colspan="4">
+					Descripción
+				</th>
+				<th align="center" colspan="3">
+					Cantidad
+				</th>
+				<th align="center" colspan="3">
+					Unidad
+				</th>
+				<th align="center" colspan="3">
+					Precio Unitario
+				</th>
+				<th align="center" colspan="3">
+					Importe
+				</th>
+			</tr>
+			<#list record.item as item>
+				<tr>
+					<td  align="center" colspan="2" >
+						${item_index + 1}
+					</td>
+					<td  align="center" colspan="2" >
+						${item.item}
+					</td>
+					<td  align="center" colspan="4" >
+						${item.description}
+					</td>
+					<td  align="center" colspan="3" >
+						${item.quantity}
+					</td>
+					<td  align="center" colspan="3" >
+						${item.units}
+					</td>
+					<td  align="center" colspan="3" >
+						${item.rate}
+					</td>
+					<td  align="center" colspan="3" >
+						${item.amount}
+					</td>
+				</tr>
+			</#list>
+		</table>
+
+		<table style="width: 100%; margin-top: 10px;">
+			<tr style="margin-top: 10px">
+				<td colspan="11" align="right" style="font-size: 8px;font-weight: bold;">SubTotal:</td>
+				<td colspan="1" align="right" style="font-size: 8px;font-weight: bold;">${record.subtotal?string[",###.00"]}</td>
+			</tr>
+			<tr style="margin-top: 5px">
+				<td colspan="11" align="right" style="font-size: 8px;font-weight: bold;">Impuestos:</td>
+				<td colspan="1" align="right" style="font-size: 8px;font-weight: bold; border-bottom: 1px solid black">${record.taxtotal?string[",###.00"]}</td>
+			</tr>
+			<tr style="margin-top: 5px">
+				<td colspan="11" align="right" style="font-size: 8px;font-weight: bold;">Total:</td>
+				<td colspan="1" align="right" style="font-size: 8px;font-weight: bold;">${record.total?string[",###.00"]}</td>
+			</tr>
+		</table>
+	</body>
+</pdf>

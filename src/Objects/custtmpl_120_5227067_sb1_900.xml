@@ -1,0 +1,9 @@
+<advancedpdftemplate scriptid="custtmpl_120_5227067_sb1_900" standard="STDTMPLPURCHORDST">
+  <description></description>
+  <displaysourcecode>F</displaysourcecode>
+  <isinactive>F</isinactive>
+  <preferred>T</preferred>
+  <printtype>TRANSACTION</printtype>
+  <title>TKO - Purchase Template</title>
+  <trantype>PURCHORD</trantype>
+</advancedpdftemplate>
